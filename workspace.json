@@ -1,0 +1,103 @@
+{
+  "version": 2,
+  "projects": {
+    "nx-generator-react-example": {
+      "root": "apps/nx-generator-react-example",
+      "sourceRoot": "apps/nx-generator-react-example",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "root": "apps/nx-generator-react-example",
+            "outputPath": "dist/apps/nx-generator-react-example"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "nx-generator-react-example:build",
+            "dev": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "nx-generator-react-example:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "executor": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "nx-generator-react-example:build:production"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/nx-generator-react-example"],
+          "options": {
+            "jestConfig": "apps/nx-generator-react-example/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/nx-generator-react-example/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        }
+      }
+    },
+    "nx-generator-react-example-e2e": {
+      "root": "apps/nx-generator-react-example-e2e",
+      "sourceRoot": "apps/nx-generator-react-example-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/nx-generator-react-example-e2e/cypress.json",
+            "tsConfig": "apps/nx-generator-react-example-e2e/tsconfig.e2e.json",
+            "devServerTarget": "nx-generator-react-example:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nx-generator-react-example:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/nx-generator-react-example-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/next"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "styled-components",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "nx-generator-react-example"
+}
